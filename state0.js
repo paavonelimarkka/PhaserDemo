@@ -1,15 +1,39 @@
 var demo = {};
+var centerX = 1500/2;
+var centerY = 1000/2;
+var ukko;
+var speed = 5;
+
 demo.state0 = function() {};
 demo.state0.prototype = {
-    preload:    function(){},
+    preload:    function(){
+        
+        game.load.image('ukko', 'assets/sprites/ukko.png');
+    },
     create:     function(){
         game.stage.backgroundColor = '#80ff80';
         console.log("State 0");
         addChangeStateEventListeners();
         
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        
+        ukko = game.add.sprite(centerX, centerY, 'ukko');
+        ukko.anchor.setTo(0.5, 0.5);
     },
-    update:     function(){}
+    update:     function(){
+        if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            ukko.x += speed;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            ukko.x -= speed;
+        }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            ukko.y -= speed;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            ukko.y += speed;
+        }
+    }
 }
 
 function changeState(i, stateNum) {
